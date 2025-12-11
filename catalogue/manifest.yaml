@@ -13,7 +13,7 @@ spec:
     matchLabels:
       project: roboshop
       environment: dev
-      component: mongodb
+      component: catalogue
       # pod definition file
   template:
     metadata:
@@ -23,7 +23,7 @@ spec:
         component: catalogue
     spec:
       containers:
-      - name: mongodb
+      - name: catalogue
         image: joindevops/catalogue:v1
         imagePullPolicy: Always
 ---
