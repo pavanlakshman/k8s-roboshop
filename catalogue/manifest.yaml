@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: catalogue
+  namespace: roboshop
+  labels:
+    project: roboshop
+    environment: dev
+    component: catalogue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      environment: dev
+      component: mongodb
+      # pod definition file
+  template:
+    metadata:
+      labels: 
+        project: roboshop
+        environment: dev
+        component: catalogue
+    spec:
+      containers:
+      - name: mongodb
+        image: joindevops/catalogue:v1
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+  namespace: roboshop
+spec:
+  selector:
+    project: roboshop
+    environment: dev
+    component: catalogue
+  ports:
+    - protocol: TCP
+      port: 8080 # service port
+      targetPort: 8080 # container port
